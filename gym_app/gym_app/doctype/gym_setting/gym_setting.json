@@ -1,0 +1,57 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-03-03 14:01:32.252167",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "number_of_classes",
+  "column_break_whic",
+  "number_of_lockers"
+ ],
+ "fields": [
+  {
+   "fieldname": "number_of_classes",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Number of Classes",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "number_of_lockers",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Number of Lockers",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_whic",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-03-03 14:02:41.007276",
+ "modified_by": "Administrator",
+ "module": "Gym-App",
+ "name": "Gym Setting",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,96 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:WP-{#####}",
+ "creation": "2024-02-29 12:05:39.815493",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "plan_type",
+  "column_break_zqof",
+  "price",
+  "gym_shift_section",
+  "gym_shift",
+  "section_break_kyhu",
+  "exercises",
+  "equipments"
+ ],
+ "fields": [
+  {
+   "fieldname": "plan_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Plan Type",
+   "options": "Beginner\nIntermediate\nAdvanced",
+   "reqd": 1
+  },
+  {
+   "fieldname": "exercises",
+   "fieldtype": "Table",
+   "label": "Exercises",
+   "options": "Gym Workout Plan Exercise"
+  },
+  {
+   "fieldname": "column_break_zqof",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_kyhu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "equipments",
+   "fieldtype": "Table",
+   "label": "Equipment's",
+   "options": "Gym Equipment",
+   "reqd": 1
+  },
+  {
+   "fieldname": "price",
+   "fieldtype": "Float",
+   "label": "Price",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "gym_shift_section",
+   "fieldtype": "Section Break",
+   "label": "Gym Shift"
+  },
+  {
+   "fieldname": "gym_shift",
+   "fieldtype": "Table",
+   "label": "Gym Shift",
+   "options": "Gym Shift",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-03-03 00:56:49.811592",
+ "modified_by": "Administrator",
+ "module": "Gym-App",
+ "name": "Gym Workout Plan",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

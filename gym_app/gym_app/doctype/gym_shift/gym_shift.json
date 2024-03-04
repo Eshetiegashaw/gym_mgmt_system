@@ -1,0 +1,49 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-03-03 00:33:20.420867",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "day",
+  "from",
+  "to"
+ ],
+ "fields": [
+  {
+   "fieldname": "day",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Day",
+   "options": "Monday\nTuesday\nWendesday\nThrusday\nFriday\nSatureday\nSunday",
+   "reqd": 1
+  },
+  {
+   "fieldname": "from",
+   "fieldtype": "Time",
+   "in_list_view": 1,
+   "label": "From",
+   "reqd": 1
+  },
+  {
+   "fieldname": "to",
+   "fieldtype": "Time",
+   "in_list_view": 1,
+   "label": "To",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-03-03 00:37:57.730507",
+ "modified_by": "Administrator",
+ "module": "Gym-App",
+ "name": "Gym Shift",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

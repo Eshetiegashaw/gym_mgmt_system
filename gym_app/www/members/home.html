@@ -1,0 +1,378 @@
+{% extends "templates/includes/layout.html" %}
+
+{% block title %}Gym Member page{% endblock %}
+
+{% block content %}
+     <div class="mx-5">
+          <!-- Gym Classes Start --> 
+          <div class="jumbotron">
+               <div class="text-header mb-5">
+                    <!-- <div class="card card-body"> -->
+                         <h4 class="text-info font-weight-bold mb-3">Your Membership Information</h4>
+                         <div class="row">
+                              {% for ship in mem_ship_info %} 
+                              <div class="col-md-4 col-sm-6 card card-body text-center">
+                                   <h5 class="text-success mb-3">Full Name</h5>
+                                   <span class="">{{ ship.full_name }} </span>
+                               </div>
+                               
+                                   <div class="col-md-4 col-sm-6 card card-body text-center d-none d-md-block">
+                                        <h5 class="text-success mb-3">From - To (Date)</h5>
+                                        
+                                        <span class="text-info">{{ ship.from }}</span> -  
+                                        <span class="text-info">{{ ship.to }} </span>
+                                   </div>
+                                   <div class="col-md-4 col-sm-6 card card-body text-center">
+                                        <h5 class="text-success mb-3">Remaining Date</h5> 
+                                        <span class="text-danger font-weight-bold">{{ (ship.to - ship.from).days }} days left </span>
+
+                                        <br />
+                                        <button class="btn btn-sm btn btn-outline-primary" type="button">Add More Days</button>
+                                   </div>
+                              {% endfor %}
+                         </div>
+                    <!-- </div> -->
+               </div>
+
+               <div class="text-header">
+                    <h4 class="text-warning font-weight-bold">Gym Classes We Have</h4>
+               </div>
+               <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                         <div class="mt-2">
+                              {% if my_class|len > 0 %}
+                              <div class="row ">
+                                   <b>You are subscribed to the class :</b>  
+                                   {% for myc in my_class %}
+                                        <div class="col-md-6 col-sm-12">
+                                             <div class="mt-5">
+                                                  <b>Class Name: </b>
+                                                  <div class="badge badge-primary">
+                                                       {{myc.class_name}}
+                                                  </div>
+                                             </div>  
+                                             <div class="mt-2">
+                                                  <b>Duration in minutes: </b>
+                                                  <div class="badge badge-primary">
+                                                       {{myc.duration/60}}
+                                                  </div>
+                                             </div>
+                                        </div>
+                                   {% endfor %}
+                              </div>
+                              {% else %} 
+                              <div class="alert alert-warning">
+                                   You are not subscribed for any class yet.
+                              </div>  
+                              {% endif %}
+                         </div>
+                    </div> 
+                    <div class="col-md-8 col-sm-6">
+                         {% if gym_classes|len > 0 %}
+                         <div class="row">
+                              {% for gym_class in gym_classes %} 
+                                   <div class="col-md-6 col-sm-12">
+                                        <div class="card my-2 ">
+                                             <div class="card-header bg-success">
+                                                  <h5 class="text-white">{{ gym_class.class_name }} 
+                                                       <span class="text text-white">({{gym_class.name}})</span>
+                                                  </h5>
+                                             </div>
+                                             <div class="card-body">
+                                                  <p class="text-justify">
+                                                       {% if gym_class.description %}\
+                                                       {{gym_class.description}}
+                                                       {% endif %}
+                                                  </p>
+                                                  <span class="badge badge-info">
+                                                       {{ gym_class.class_status}}
+                                                  </span>
+                                             </div>
+                                             <div class="card-footer">
+                                                  <p class="badge badge-danger float-left">
+                                                       {{ gym_class.price}}
+                                                  </p> 
+
+                                                  <button class="btn btn-sm btn-outline-primary float-right" onclick="book_class(event, '{{ gym_class.class_name }}')" 
+                                                  data-member="{{ member }}">
+                                                       Book Now
+                                                  </button>
+                                             </div>
+                                        </div>
+                                   </div>
+                              {% endfor %}
+                         </div>
+                         {% else %}
+                         <div class="alert alert-danger" role="alert">
+                              Classes are not available now.
+                         </div>
+                         {% endif %}
+                    </div>
+               </div>
+          </div>
+
+          <!-- Gym Lockers start -->
+          <div class="jumbotron">
+               <div class="text-header">
+                    <h4 class="text-warning font-weight-bold">Gym Lockers We Prepare</h4>
+               </div>
+               
+               <div class="row">
+                    <div class="col-md-8 col-sm-6">
+                         {% if gym_lockers %}
+                         <div class="row">
+                              {% for locker in gym_lockers  %}
+                                   <div class="col-md-6 col-sm-12">
+                                        <div class="card my-2">
+                                             <div class="card-header bg-success">
+                                                  <h5 class="text-white">{{ locker.locker_name }}
+                                                       <span class="text-white display-5">({{locker.name}})</span>
+                                                  </h5>
+                                             </div>
+                                             <div class="card-body"> 
+                                                  <p class="badge badge-secondary">
+                                                       {{ locker.locker_status}}
+                                                  </p>
+                                             </div>
+                                             <div class="card-footer">
+                                                  <button class="btn btn-sm btn-outline-primary">Book Now</button>
+                                             </div>
+                                        </div>
+                                   </div>                         
+                              {% endfor %}
+                         </div>
+                         {% else %}
+                         <div class="alert alert-danger" role="alert">
+                              Classes are not available now.
+                         </div>
+                         {% endif %}
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                         <div class="mt-2">
+                              {% if my_class|len > 0 %}
+                              <div class="row ">
+                                   <b>You are subscribed to the following locker :</b>  
+                                   {% for locker in my_locker %}
+                                        <div class="col-md-6 col-sm-12">
+                                             <div class="mt-5">
+                                                  <b>Locker Name: </b>
+                                                  <div class="badge badge-primary">
+                                                       {{locker.locker}}
+                                                  </div>
+                                             </div>  
+                                             <div class="mt-2">
+                                                  <b>Duration in minutes: </b>
+                                                  <div class="badge badge-primary">
+                                                       {{locker.duration/60}}
+                                                  </div>
+                                             </div>
+                                        </div>
+                                   {% endfor %}
+                              </div>
+                              {% else %} 
+                              <div class="alert alert-warning">
+                                   You are not subscribed for any locker yet.
+                              </div>  
+                              {% endif %}
+                         </div>
+                    </div>
+               </div>
+          </div>
+
+          <!-- Gym Trainers Start -->
+          <div class="jumbotron">
+               <div class="text-header">
+                    <h4 class="text-warning font-weight-bold">Our Gym Trainers</h4>
+               </div>
+               <div class="row">                    
+                    <div class="col-md-8 col-sm-6">
+                         {% if gym_trainers %}
+                         <div class="row">
+                              {% for trainer in gym_trainers %}
+                                   <div class="col-md-6 col-sm-12">
+                                        <div class="card my-2 ">
+                                             <div class="card-header bg-success">
+                                                  <h5 class="text-white">{{ trainer.full_name }}</h5>
+                                             </div>
+                                             <div class="card-body"> 
+                                                  <p class="text-justify">
+                                                       {{trainer.specialization}}
+                                                  </p> 
+                                                  <button class="btn btn-sm btn-outline-primary">Book Now</button>
+                                             </div> 
+                                        </div>
+                                   </div>
+                              {% endfor %}
+                         </div>
+                         {% else %}
+                         <div class="alert alert-danger" role="alert">
+                              Gym Trainers are not available yet.
+                         </div>
+                         {% endif %}
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                         <div class="mt-2">
+                              {% if my_class|len > 0 %}
+                              <div class="row ">
+                                   <b>You are subscribed to the following trainer :</b>  
+                                   {% for trainer in my_trainer %}
+                                        <div class="col-md-6 col-sm-12">
+                                             <div class="mt-5">
+                                                  <b>Trainer Name: </b>
+                                                  <div class="badge badge-primary">
+                                                       {{trainer.trainer}}
+                                                  </div>
+                                             </div>  
+                                             <div class="mt-2">
+                                                  <b>Duration </b>
+                                                  <br />
+                                                  <b>From: </b>
+                                                  <div class="badge badge-primary">
+                                                       {{trainer.duration}}
+                                                  </div>
+                                                  <br/>
+                                                  <b>To: </b>
+                                                  <div class="badge badge-primary">
+                                                       {{trainer.to}}
+                                                  </div>
+                                             </div>
+                                        </div>
+                                   {% endfor %}
+                              </div>
+                              {% else %} 
+                              <div class="alert alert-warning">
+                                   You are not subscribed for any trainer yet.
+                              </div>  
+                              {% endif %}
+                         </div>
+                    </div>
+               </div>
+          </div>
+
+          <!-- Gym Exercise Start -->
+          <div class="jumbotron">
+               <div class="text-header">
+                    <h4 class="text-warning font-weight-bold">Gym Workout Plan</h4>
+               </div>
+               <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                         <div class="mt-2">
+                              {% if my_workout|len > 0 %}
+                              <div class="row ">
+                                   <b>You are subscribed to the following trainer :</b>  
+                                   {% for workout in my_workout %}
+                                        <div class="col-md-6 col-sm-12">
+                                             <div class="mt-5">
+                                                  <b>Workout Name: </b>
+                                                  <div class="badge badge-primary">
+                                                       {{workout.member}}
+                                                  </div>
+                                             </div>  
+                                             <div class="mt-2">
+                                                  <b>Duration </b>
+                                                  <br />
+                                                  <b>From: </b>
+                                                  <div class="badge badge-primary">
+                                                       {{workout.from}}
+                                                  </div>
+                                                  <br/>
+                                                  <b>To: </b>
+                                                  <div class="badge badge-primary">
+                                                       {{workout.to}}
+                                                  </div>
+                                             </div>
+                                        </div>
+                                   {% endfor %}
+                              </div>
+                              {% else %} 
+                              <div class="alert alert-warning">
+                                   You are not subscribed for any workout plan yet.
+                              </div> 
+                              {% endif %}
+                         </div>
+                    </div>
+                    <div class="col-md-8 col-sm-6">
+                         {% if gym_workouts %}
+                         <div class="row">
+                              {% for workout in gym_workouts %}
+                                   <div class="col-md-6 col-sm-12">
+                                        <div class="card my-2 ">
+                                             <div class="card-header bg-success">
+                                                  <h5 class="text-white">{{ workout.exercise_name }}</h5>
+                                             </div>
+                                             <div class="card-body"> 
+                                                  <p class="badge badge-secondary">
+                                                       {{ workout.exercise_duration / 60 }} minutes
+                                                  </p>
+                                                  <br />
+                                                  <button class="btn btn-sm btn-outline-primary">Book Now</button>
+                                             </div> 
+                                        </div>
+                                   </div>
+                              {% endfor %}
+                         </div>
+                         {% else %}
+                         <div class="alert alert-danger" role="alert">
+                              Gym Exercise Plans are not available yet.
+                         </div>
+                         {% endif %}
+                    </div>
+               </div>
+          </div>
+     </div> 
+
+     <!-- {% block javascript %}
+	<script>
+          function book_class(class_name){
+               var member = event.target.getAttribute('data-member');
+               console.log('Hello there');
+               console.log('Class Name: ' + class_name);
+               console.log('Member: ' + member); 
+               // frappe.call({
+               //      method: 'frappe.client.get_value',
+               //      type: "POST",
+               //      args: {
+               //           'doctype': 'Gym Class Subscription',
+               //           'filters': {'name': item_code},
+               //           'fieldname': [
+               //                'item_name',
+               //                'web_long_description',
+               //                'description',
+               //                'image',
+               //                'thumbnail'
+               //           ]
+               //      },
+               //      callback: function(r) {
+               //           if (!r.exc) {
+               //                // code snippet
+               //           }
+               //      }
+               // });
+          }
+     </script>
+
+     {% endblock %}  -->
+     <!-- <script src="../../doctype/gym_class_subscription/gym_class_subscription.js"></script> -->
+     <!-- <script src="home.js"></script> -->
+     <button class="btn btn-primary" id="call_method_btn" >Call Doctype Method</button>
+     <script>
+          $(document).ready(function() {
+              $("#call_method_btn").click(function() {
+               console.log("here");
+                  $.ajax({
+                      url: "/api/method/gym_app.home.book_class",
+                      type: "POST",
+                      data: {
+                          doctype_name: "Gym Member"
+                      },
+                      success: function(response) {
+                          $("#result").text(response.message);
+                      },
+                      error: function(xhr, status, error) {
+                          console.error(error);
+                      }
+                  });
+              });
+          });
+      </script>
+{% endblock %}

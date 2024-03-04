@@ -1,1 +1,7 @@
-# gym_mgmt_system
+## Gym-App
+
+Gym Management Application
+
+#### License
+
+mit

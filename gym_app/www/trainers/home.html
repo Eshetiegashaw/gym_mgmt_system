@@ -1,0 +1,25 @@
+{% extends "templates/includes/layout.html" %}
+
+{% block title %}Member Lists{% endblock %}
+
+{% block content %}  
+     <div class="jumbotron"> 
+          <div class="mx-5"> 
+               <h3 class="text-center font-weight-bold ">Your Trainee Member Lists</h3>
+               <div class="row">
+                    {% for mem in members %}
+                    <div class="col-md-4 col-sm-6">
+                         <div class="card card-header bg-primary">
+                              <h5><b>Trainee Name: </b>{{ mem.full_name }}</h5>
+                         </div>
+                         <div class="card card-body">                              
+                              <small><b>From:</b> {{ mem.duration }}</small>
+                              <br>
+                              <small><b>To:</b> {{ mem.to }}</small>
+                         </div>
+                    </div>
+                    {% endfor %}
+               </div> 
+          </div>
+     </div>
+{% endblock %} 
